@@ -28,7 +28,7 @@ queue = collections.deque()
 for i in range(0, 13):
     queue.append(number[i])
 
-max_product = 0;
+max_product = 0
 for i in range(13, 1000):
     product = 1
     for q in queue:

@@ -13,7 +13,7 @@ def isPrime(number):
 
     return prime
 
-i = 1;
+i = 1
 primeCount = 1
 while (primeCount != 10001):
     if isPrime(i):

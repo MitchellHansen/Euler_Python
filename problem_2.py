@@ -1,6 +1,6 @@
 
-prev_two = 1;
-prev_one = 0;
+prev_two = 1
+prev_one = 0
 fib_num = 0
 sum = 0
 
