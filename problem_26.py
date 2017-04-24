@@ -10,16 +10,37 @@
 # 1/8	= 	0.125
 # 1/9	= 	0.(1)
 # 1/10	= 	0.1
-
+#
 # Where 0.1(6) means 0.166666..., and has a 1-digit recurring cycle. It can be seen that 1/7 has a 6-digit recurring cycle.
 #
 # Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
 
-def longest_permutation(input):
+def longest_permutation(denominator):
 
-    return input
+    mod_list = []
+    modulo = 1.0
 
-i = str(1.0/7.0)
-print(i)
-if "142857" in i:
-    print(True)
+    while True:
+
+        modulo *= 10
+        if modulo in mod_list:
+            break
+
+        mod_list.append(modulo)
+        modulo %= denominator
+
+    return len(mod_list)
+
+longest_perm = 0
+longest_perm_denominator = 0
+
+for i in range(1, 1000):
+
+    perm_num = longest_permutation(i)
+
+    if longest_perm < perm_num:
+        longest_perm = perm_num
+        longest_perm_denominator = i
+
+print(longest_perm_denominator)
+print(longest_perm)
