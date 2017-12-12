@@ -1,45 +1,29 @@
 
-# solving this recursively is an interesting solution
+# thank you http://algorithms.tutorialhorizon.com/dynamic-programming-coin-change-problem/
 
-import itertools
-
-set_list = set()
-permutation_list = list(itertools.combinations(list([1, 2, 5, 10, 20, 50, 100, 200]), 2))
-
-success_count = 0
+coin_list = [1, 2, 5, 10, 20, 50, 100, 200]
 
 
-def recursive_coin_add(value, ciel):
+def coin(v, amount):
 
-    if value == ciel:
-        global success_count
-        success_count += 1
-        return
+    solution = [[0 for x in range(amount + 1)] for y in range(len(v) + 1)]
 
-    if 1 + value <= ciel:
-        recursive_coin_add(1 + value, ciel)
+    if amount == 0:
+        return 0
 
-    if 2 + value <= ciel:
-        recursive_coin_add(2 + value, ciel)
+    for i in range(0, len(v) + 1):
+        solution[i][0] = 1
 
-    if 5 + value <= ciel:
-        recursive_coin_add(5 + value, ciel)
+    for i in range (1, amount + 1):
+        solution[0][i] = 0
 
-    if 10 + value <= ciel:
-        recursive_coin_add(10 + value, ciel)
+    for i in range(1, len(v) + 1):
+        for j in range(1, amount + 1):
+            if v[i - 1] <= j:
+                solution[i][j] = solution[i - 1][j] + solution[i][j - v[i - 1]]
+            else:
+                solution[i][j] = solution[i - 1][j]
+    return solution[len(v)][amount]
 
-    if 20 + value <= ciel:
-        recursive_coin_add(20 + value, ciel)
 
-    if 50 + value <= ciel:
-        recursive_coin_add(50 + value, ciel)
-
-    if 100 + value <= ciel:
-        recursive_coin_add(100 + value, ciel)
-
-    if 200 + value <= ciel:
-        recursive_coin_add(200 + value, ciel)
-
-recursive_coin_add(0, 200)
-
-print(success_count)
+print(coin(coin_list, 200))
